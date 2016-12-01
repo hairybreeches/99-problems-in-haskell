@@ -10,3 +10,7 @@ myButLast (h:t) = myButLast t
 
 elementAt :: [a] -> Int -> a
 elementAt xs index = head (drop (index -1) xs)
+
+myLength :: [a] -> Int
+myLength [] = 0
+myLength (h:t) = 1 + myLength t
