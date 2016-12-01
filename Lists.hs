@@ -36,3 +36,12 @@ prependUnique xs y
 
 compress :: (Eq a) => [a] -> [a]
 compress = reverse . (foldl prependUnique [])
+
+packElement :: (Eq a) => [[a]] -> a -> [[a]]
+packElement [] x = [[x]]
+packElement globalList@(currentList@(currentElement:_):globalTail) y
+    | currentElement == y  = (y:currentList):globalTail
+    | otherwise = [y] : globalList
+
+pack  :: (Eq a) => [a] -> [[a]]
+pack  = reverse . (foldl packElement [])
