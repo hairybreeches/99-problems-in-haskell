@@ -70,5 +70,12 @@ decode :: [EncodedRun a] -> [a]
 decode = concatMap decodeRun
 
 
+repli :: [a] -> Int -> [a]
+repli xs n = concatMap (replicate n) xs
+
+dupli :: [a] -> [a]
+dupli = (flip repli) 2
+
+
 
 
