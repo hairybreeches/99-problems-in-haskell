@@ -46,15 +46,21 @@ packElement globalList@(currentList@(currentElement:_):globalTail) y
 pack  :: (Eq a) => [a] -> [[a]]
 pack  = reverse . (foldl packElement [])
 
+encodeElement :: (Eq a) => [(Int, a)] -> a -> [(Int, a)]
+encodeElement [] x = [(1,x)]
+encodeElement globalList@((currentCount, currentElement):globalTail) y
+    | currentElement == y  = (currentCount + 1, currentElement):globalTail
+    | otherwise = (1,y) : globalList
+
 data EncodedRun a = Single a | Multiple Int a
     deriving Show
 
-createEncodedRun :: [a] -> EncodedRun a
-createEncodedRun [x] = Single x
-createEncodedRun xs = Multiple (length xs) (head xs)
+createEncodedRun :: (Int, a) -> EncodedRun a
+createEncodedRun (1, a) = Single a
+createEncodedRun (n, a) = Multiple n a
 
 encode :: (Eq a) => [a] -> [EncodedRun a]
-encode = (map createEncodedRun) . pack
+encode = (map createEncodedRun) . reverse . (foldl encodeElement [])
 
 decodeRun :: EncodedRun a -> [a]
 decodeRun (Single x) = [x]
