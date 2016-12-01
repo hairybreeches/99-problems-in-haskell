@@ -61,3 +61,14 @@ createEncodedRun (n, a) = Multiple n a
 
 encode :: (Eq a) => [a] -> [EncodedRun a]
 encode = (map createEncodedRun) . reverse . (foldl encodeElement [])
+
+decodeRun :: EncodedRun a -> [a]
+decodeRun (Single x) = [x]
+decodeRun (Multiple n x) = replicate n x
+
+decode :: [EncodedRun a] -> [a]
+decode = concatMap decodeRun
+
+
+
+
