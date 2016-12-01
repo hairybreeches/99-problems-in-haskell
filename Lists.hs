@@ -52,5 +52,12 @@ encodeElement globalList@((currentCount, currentElement):globalTail) y
     | currentElement == y  = (currentCount + 1, currentElement):globalTail
     | otherwise = (1,y) : globalList
 
-encode :: (Eq a) => [a] -> [(Int, a)]
-encode = reverse . (foldl encodeElement [])
+data EncodedRun a = Single a | Multiple Int a
+    deriving Show
+
+createEncodedRun :: (Int, a) -> EncodedRun a
+createEncodedRun (1, a) = Single a
+createEncodedRun (n, a) = Multiple n a
+
+encode :: (Eq a) => [a] -> [EncodedRun a]
+encode = (map createEncodedRun) . reverse . (foldl encodeElement [])
