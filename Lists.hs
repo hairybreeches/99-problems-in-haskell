@@ -27,3 +27,12 @@ data NestedList a = Elem a | List [NestedList a]
 flatten :: NestedList a -> [a]
 flatten (List xs) = concatMap flatten xs
 flatten (Elem x) = [x]
+
+prependUnique :: (Eq a) => [a] -> a -> [a]
+prependUnique [] x = [x]
+prependUnique xs y
+    | (head xs) == y  = xs
+    | otherwise = y:xs
+
+compress :: (Eq a) => [a] -> [a]
+compress = reverse . (foldl prependUnique [])
