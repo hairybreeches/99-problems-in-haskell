@@ -45,3 +45,12 @@ packElement globalList@(currentList@(currentElement:_):globalTail) y
 
 pack  :: (Eq a) => [a] -> [[a]]
 pack  = reverse . (foldl packElement [])
+
+encodeElement :: (Eq a) => [(Int, a)] -> a -> [(Int, a)]
+encodeElement [] x = [(1,x)]
+encodeElement globalList@((currentCount, currentElement):globalTail) y
+    | currentElement == y  = (currentCount + 1, currentElement):globalTail
+    | otherwise = (1,y) : globalList
+
+encode :: (Eq a) => [a] -> [(Int, a)]
+encode = reverse . (foldl encodeElement [])
