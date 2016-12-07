@@ -80,6 +80,13 @@ dropEvery :: [a] -> Int -> [a]
 dropEvery [] _ = []
 dropEvery xs n = (take (n - 1) xs) ++ (dropEvery (drop n xs) n)
 
+split :: [a] -> Int -> ([a], [a])
+split xs n = (take n xs, drop n xs)
+
+slice :: [a] -> Int -> Int -> [a]
+slice xs start finish = take (finish - start + 1) (drop (start - 1) xs)
+
+
 
 
 
