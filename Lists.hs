@@ -90,10 +90,15 @@ rotate :: [a] -> Int -> [a]
 rotate xs n
     | n < 0 = 
         let l = (length xs)
-        rotate xs (n `mod` l)
+        in rotate xs (n `mod` l)
     | otherwise = 
         let (start, finish) = split xs n
         in finish ++ start
+
+removeAt :: Int -> [a] -> (a, [a])
+removeAt n xs = (element, before ++ after)
+    where (before, (element:after)) = split xs (n - 1)
+   
 
 
 
