@@ -86,6 +86,15 @@ split xs n = (take n xs, drop n xs)
 slice :: [a] -> Int -> Int -> [a]
 slice xs start finish = take (finish - start + 1) (drop (start - 1) xs)
 
+rotate :: [a] -> Int -> [a]
+rotate xs n
+    | n < 0 = 
+        let l = (length xs)
+        rotate xs (n `mod` l)
+    | otherwise = 
+        let (start, finish) = split xs n
+        in finish ++ start
+
 
 
 
