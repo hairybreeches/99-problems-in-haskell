@@ -99,7 +99,9 @@ removeAt :: Int -> [a] -> (a, [a])
 removeAt n xs = (element, before ++ after)
     where (before, (element:after)) = split xs (n - 1)
    
-
+insertAt :: a -> [a] -> Int -> [a]
+insertAt newValue xs index = before ++ [newValue] ++ after
+    where (before, after) = split xs (index - 1)
 
 
 
