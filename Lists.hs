@@ -102,6 +102,9 @@ removeAt n xs = (element, before ++ after)
 insertAt :: a -> [a] -> Int -> [a]
 insertAt newValue xs index = before ++ [newValue] ++ after
     where (before, after) = split xs (index - 1)
+    
+range :: Int -> Int -> [Int]
+range a b = [a .. b]
 
 
 
