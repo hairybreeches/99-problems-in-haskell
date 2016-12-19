@@ -134,3 +134,11 @@ frequencies :: (Ord a) => [a] -> FrequencyLookup a
 frequencies = foldr
     addFrequency
     Map.empty
+
+lookupLength :: FrequencyLookup Int -> [a] -> Int
+lookupLength freqs x = Map.findWithDefault 0 (length x) freqs
+
+lfsort :: [[a]] -> [[a]]
+lfsort xs =  
+    let freqs = frequencies (map length xs)
+    in sortWith (lookupLength freqs) xs
