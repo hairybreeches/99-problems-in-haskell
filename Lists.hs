@@ -1,6 +1,8 @@
 module NinetyNineProblems.Lists
 where
 
+import Data.List ((\\))
+
 myLast :: [a] -> a
 myLast = foldl1 (\x y -> y)
 
@@ -107,11 +109,17 @@ range :: Int -> Int -> [Int]
 range a b = [a .. b]
 
 type Combination a = [a]
+type Partition a = [[a]]
 
 combinations :: Int -> [a] -> [Combination a]
 combinations 0 _ = [[]]
 combinations _ [] = []
-combinations n (h:t) = map (h:) (combinations (n - 1) t) ++ combinations n t  
+combinations n (h:t) = map (h:) (combinations (n - 1) t) ++ combinations n t
+
+group :: (Eq a) => [Int] -> [a] -> [Partition a]
+group [] [] = [[]]
+group (n:ns) xs = concat [[ c:subPartition |subPartition <- group ns (xs \\ c)]| c <- combinations n xs]
+
 
 
 
