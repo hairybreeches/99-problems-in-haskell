@@ -125,16 +125,12 @@ group (n:ns) xs = concat [[ c:subPartition |subPartition <- group ns (xs \\ c)]|
 lsort :: [[a]] -> [[a]]
 lsort = sortWith length
 
-addFrequency :: (Ord k) => k -> Map.Map k Int -> Map.Map k Int
+type FrequencyLookup a = Map.Map a Int
+
+addFrequency :: (Ord a) => a -> FrequencyLookup a -> FrequencyLookup a
 addFrequency k = Map.insertWith (+) k 1
 
-frequencies :: (Ord a) => [a] -> Map.Map a Int
+frequencies :: (Ord a) => [a] -> FrequencyLookup a
 frequencies = foldr
     addFrequency
     Map.empty
-
-
-
-
-
-
