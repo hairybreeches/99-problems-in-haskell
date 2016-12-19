@@ -106,6 +106,14 @@ insertAt newValue xs index = before ++ [newValue] ++ after
 range :: Int -> Int -> [Int]
 range a b = [a .. b]
 
+type Combination a = [a]
+
+combinations :: Int -> [a] -> [Combination a]
+combinations 0 _ = [[]]
+combinations _ [] = []
+combinations n (h:t) = map (h:) (combinations (n - 1) t) ++ combinations n t  
+
+
 
 
 
