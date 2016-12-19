@@ -2,6 +2,7 @@ module NinetyNineProblems.Lists
 where
 
 import Data.List ((\\))
+import GHC.Exts (sortWith)
 
 myLast :: [a] -> a
 myLast = foldl1 (\x y -> y)
@@ -119,6 +120,9 @@ combinations n (h:t) = map (h:) (combinations (n - 1) t) ++ combinations n t
 group :: (Eq a) => [Int] -> [a] -> [Partition a]
 group [] [] = [[]]
 group (n:ns) xs = concat [[ c:subPartition |subPartition <- group ns (xs \\ c)]| c <- combinations n xs]
+
+lsort :: [[a]] -> [[a]]
+lsort = sortWith length
 
 
 
