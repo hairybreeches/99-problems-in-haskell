@@ -3,6 +3,7 @@ where
 
 import Data.List ((\\))
 import GHC.Exts (sortWith)
+import qualified Data.Map.Strict as Map
 
 myLast :: [a] -> a
 myLast = foldl1 (\x y -> y)
@@ -123,6 +124,14 @@ group (n:ns) xs = concat [[ c:subPartition |subPartition <- group ns (xs \\ c)]|
 
 lsort :: [[a]] -> [[a]]
 lsort = sortWith length
+
+addFrequency :: (Ord k) => k -> Map.Map k Int -> Map.Map k Int
+addFrequency k = Map.insertWith (+) k 1
+
+frequencies :: (Ord a) => [a] -> Map.Map a Int
+frequencies = foldr
+    addFrequency
+    Map.empty
 
 
 
